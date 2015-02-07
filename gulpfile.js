@@ -6,13 +6,28 @@ rename      = require('gulp-rename'),
 jade        = require('gulp-jade'),
 insert      = require('gulp-insert'),
 dists       = require('./dist-scripts.json'),
-io          = require('socket.io')(3000);
+io          = require('socket.io')(3000),
+PrettyError = require('pretty-error'),
+pe          = new PrettyError(),
+firstTime   = false;
+
+// Handle errors during watch
+
+swallowError = function (error) {
+	console.log(pe.render(error));
+	this.emit('end');
+}
+
+
 
 // Socket refresh
 
 io.on('connection', (function(_this) {
 	return function(socket) {
-		return console.log('connected to app over port 3000');
+		if (firstTime)
+			return console.log('connected to app over port 3000');
+		else
+			return console.log('Client on port 3000 refreshed');
 	};
 })(this));
 
@@ -47,6 +62,7 @@ gulp.task('sass', function () {
 		errLogToConsole: true,
 		includePaths: ['./vendor/compass']
 	}))
+	.on('error', swallowError)
 	.pipe(gulp.dest('./app/'));
 });
 
@@ -68,11 +84,16 @@ gulp.task('coffee', function() {
 			// 		depends: {
 			// 			angular: 'angular'
 			// 		}
+			// 	},
+			// 	jquery: {
+			// 		path: './vendor/jquery/jquery.min.js',
+			// 		exports: '$'
 			// 	}
 			// },
 			transform: ['coffeeify'],
 			extensions: ['.coffee']
 		}))
+		.on('error', swallowError)
 		.pipe(rename(src + '.js'))
 		.pipe(gulp.dest('./app/'))
 	};
@@ -84,6 +105,7 @@ gulp.task('jade', function() {
 	.pipe(jade({
 		pretty: true
 	}))
+	.on('error', swallowError)
 	.pipe(insert.append('<script type="text/javascript" src="../refresh-client.js"></script>'))
 	.pipe(gulp.dest('./app/'));
 });

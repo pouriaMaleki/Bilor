@@ -13,7 +13,8 @@
     "coffeeify": "*",
     "gulp-rename": "*",
     "gulp-jade": "*",
-    "socket.io": "*"
+    "socket.io": "*",
+    "pretty-error": "*"
     },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
