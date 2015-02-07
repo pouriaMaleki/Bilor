@@ -1,0 +1,23 @@
+{
+  "name": "Bilor",
+  "version": "0.0.1",
+  "description": "\"Web app development boiler plate\"",
+  "main": "gulpfile.js",
+  "dependencies": {
+    },
+  "devDependencies": {
+    "gulp": "*",
+    "gulp-util": "*",
+    "gulp-sass": "*",
+    "gulp-browserify": "*",
+    "coffeeify": "*",
+    "gulp-rename": "*",
+    "gulp-jade": "*",
+    "socket.io": "*"
+    },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Pouria Maleki",
+  "license": "MIT"
+}
