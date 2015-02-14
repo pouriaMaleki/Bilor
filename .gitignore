@@ -1,5 +1,14 @@
-.DS_Store
-node_modules
-*.sh
+.sass-cache
+-p
 *.bat
+*.sh
+.DS_Store
+app
+!app/assets/*
+!app/assets/*.*
+!app/assets/**/*
+!development/*
+!development/*.*
+!development/**/*
+node_modules
 vendor
